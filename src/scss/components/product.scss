@@ -1,0 +1,396 @@
+.product-list {
+    align-items: flex-start;
+    display: flex;
+    flex-flow: row wrap;
+    height: 100%;
+    justify-content: space-around;
+    margin: 0 auto;
+    width: 95vw;
+    max-width: 1135px;
+
+    li {
+        list-style-type: none;
+    }
+}
+
+.product {
+    margin: 10px 5px;
+    width: 320px;
+
+    .product__description {
+        font-size: 13px;
+        text-align: center;
+        width: 100%;
+    }
+
+    .item,
+    .item::before,
+    .item__weight,
+    .degradation-background__top,
+    .degradation-background__top::before,
+    .degradation-background__bottom {
+        transition: all ease 0.6s;
+    }
+
+    .points-list {
+        font-size: 14px;
+        margin-top: 15px;
+    }
+
+    .weight__num {
+        font-size: 42px;
+        margin-bottom: -8px;
+    }
+
+    .weight__measure {
+        font-size: 21px;
+    }
+
+    .description__disabled-text,
+    .description__selected-text,
+    .content__was-selected-hover-text {
+        display: none;
+    }
+
+    .description__disabled-text {
+        color: $yellow;
+    }
+
+    .content__default-text,
+    .content__was-selected,
+    .content__was-selected-hover-text {
+        font-size: 16px;
+    }
+
+    .content__was-selected-hover-text {
+        color: $red;
+    }
+
+    /*default*/
+
+    .item {
+        display: block;
+        box-sizing: border-box;
+        color: #666;
+        cursor: pointer;
+        height: 1px;
+        margin-bottom: 13px;
+        min-height: 480px;
+        overflow: hidden;
+        position: relative;
+        width: 100%;
+
+        /* for modern browsers */
+        @supports (-webkit-clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) or (clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) {
+            background: $itemColor url(#{$imgPath}/cat.png) no-repeat left bottom/contain;
+            border: 4px solid $blue;
+            border-radius: 10px;
+            -webkit-clip-path: polygon(42px 0, 100% 0, 100% 100%, 0 100%, 0 42px);
+            clip-path: polygon(42px 0, 100% 0, 100% 100%, 0 100%, 0 42px);
+            position: relative;
+
+            &::before {
+                border: 20px solid transparent;
+                border-left: 20px solid $blue;
+                border-top: 20px solid $blue;
+                content: "";
+                left: 0;
+                position: absolute;
+                top: 0;
+                z-index: 3;
+            }
+
+            .item__degradation-background {
+                display: none;
+            }
+        }
+
+        /* degradation for old browsers */
+
+        &__degradation-background {
+            bottom: 0;
+            box-sizing: border-box;
+            height: 100%;
+            left: 0;
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+
+        &__content {
+            box-sizing: border-box;
+            max-height: 42%;
+            overflow: auto;
+            padding: 15px 40px 0 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        &__weight {
+            align-items: center;
+            background: $blue;
+            border-radius: 100%;
+            bottom: 10px;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            height: 80px;
+            justify-content: center;
+            letter-spacing: 0;
+            position: absolute;
+            right: 10px;
+            width: 80px;
+            z-index: 3;
+        }
+
+        .degradation-background__top {
+            background: transparent;
+            background-image: linear-gradient(132deg, transparent 25px, $blue 25px, $blue 29px, #fff 30px);
+            border: none;
+            border-radius: 0 10px 0 0;
+            height: 40px;
+            margin-bottom: -1px;
+            position: relative;
+            width: 100%;
+
+            &::before {
+                background: transparent;
+                border: none;
+                border-radius: 0 10px 0 0;
+                border-right: 4px solid $blue;
+                border-top: 4px solid $blue;
+                content: "";
+                height: 40px;
+                position: absolute;
+                right: 0;
+                top: 0;
+                width: calc(100% - 39px);
+            }
+        }
+
+        .degradation-background__bottom {
+            background: $itemColor url(#{$imgPath}/cat.png) no-repeat left bottom/contain;
+            border: 4px solid $blue;
+            border-radius: 0 0 10px 10px;
+            border-top: none;
+            box-sizing: border-box;
+            height: calc(100% - 40px);
+            width: 100%;
+        }
+
+        &:hover {
+            /* for modern browsers */
+            @supports (-webkit-clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) or (clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) {
+                border-color: $lightBlue;
+
+                &::before {
+                    border-left-color: $lightBlue;
+                    border-top-color: $lightBlue;
+                }
+            }
+
+            .item__weight {
+                background: $lightBlue;
+            }
+
+            /* degradation for old browsers */
+
+            .degradation-background__top {
+                background-image: linear-gradient(132deg, transparent 25px, $lightBlue 25px, $lightBlue 29px, #fff 30px);
+
+                &::before {
+                    border-right: 4px solid $lightBlue;
+                    border-top: 4px solid $lightBlue;
+                }
+            }
+
+            .degradation-background__bottom {
+                border-color: $lightBlue;
+            }
+        }
+    }
+
+    input {
+        position: absolute;
+        z-index: -1;
+        opacity: 0;
+
+        /* active */
+
+        &:checked {
+            & ~ .item,
+            & ~ item:hover {
+                /* for modern browsers */
+                @supports (-webkit-clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) or (clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) {
+                    border-color: $red;
+
+                    &::before {
+                        border-left-color: $red;
+                        border-top-color: $red;
+                    }
+                }
+
+                .item__weight {
+                    background: $red;
+                }
+
+                /* degradation for old browsers */
+                .degradation-background__top {
+                    background-image: linear-gradient(132deg, transparent 25px, $red 25px, $red 29px, #fff 30px);
+
+                    &::before {
+                        border-right: 4px solid $red;
+                        border-top: 4px solid $red;
+                    }
+                }
+
+                .degradation-background__bottom {
+                    border-color: $red;
+                }
+            }
+
+            & ~ .product__description {
+                .description__default-text,
+                .description__disabled-text {
+                    display: none;
+                }
+
+                .description__selected-text {
+                    display: block;
+                }
+            }
+        }
+
+        /* disabled */
+
+        &:disabled {
+            & ~ .item,
+            & ~ .item:hover {
+                cursor: default;
+
+                h2 {
+                    color: #666;
+                }
+
+                /* for modern browsers */
+                @supports (-webkit-clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) or (clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) {
+                    border-color: $gray;
+
+                    &::before {
+                        border-left-color: $gray;
+                        border-top-color: $gray;
+                    }
+
+                    &::after {
+                        background: rgba(255, 255, 255, 0.5);
+                        content: "";
+                        height: 100%;
+                        left: 0;
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        z-index: 2;
+                    }
+
+                    .item__content {
+                        opacity: 0.5;
+                    }
+                }
+
+                .item__weight {
+                    background: $gray !important;
+                }
+
+                .item__content {
+                    opacity: 0.5;
+                }
+
+                /* degradation for old browsers */
+                .degradation-background__top {
+                    background-image: linear-gradient(132deg, transparent 25px, $gray 25px, $gray 29px, #fff 30px);
+                    border-color: $gray;
+
+                    &::before {
+                        border-right: 4px solid $gray;
+                        border-top: 4px solid $gray;
+                    }
+                }
+
+                .degradation-background__bottom {
+                    background: #fff;
+                    border-color: $gray;
+                    position: relative;
+
+                    &::after {
+                        background: #fff url(#{$imgPath}/cat.png) no-repeat left bottom/contain;
+                        content: "";
+                        height: 100%;
+                        left: 0;
+                        opacity: 0.5;
+                        position: absolute;
+                        top: 0;
+                        width: 100%;
+                        z-index: 2;
+                    }
+                }
+            }
+
+            & ~ .product__description {
+                .description__default-text,
+                .description__selected-text {
+                    display: none;
+                }
+
+                .description__disabled-text {
+                    display: block;
+                }
+            }
+        }
+    }
+
+    /* was selected, when hover */
+    &_was-selected {
+        .item:hover {
+            .content__default-text {
+                display: none;
+            }
+
+            .item__weight {
+                background: $red;
+            }
+
+            .content__was-selected-hover-text {
+                display: block;
+            }
+            /* for modern browsers */
+            @supports (-webkit-clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) or (clip-path: polygon(40px 0, 100% 0, 100% 100%, 0 100%, 0 40px)) {
+                border-color: $red;
+
+                &::before {
+                    border-left-color: $red;
+                    border-top-color: $red;
+                }
+            }
+
+            /* degradation for old browsers */
+            .degradation-background__top {
+                background-image: linear-gradient(132deg, transparent 25px, $red 25px, $red 29px, #fff 30px);
+
+                &::before {
+                    border-right: 4px solid $red;
+                    border-top: 4px solid $red;
+                }
+            }
+
+            .degradation-background__bottom {
+                border-color: $red;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: $break-tablet) {
+    .product-list {
+        justify-content: space-between;
+    }
+}

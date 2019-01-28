@@ -1,0 +1,19 @@
+.btn_like-link {
+    background: transparent;
+    border: none;
+    color: $blue;
+    cursor: pointer;
+    text-decoration: none;
+
+    .btn__text {
+        border-bottom: 1px dashed $blue;
+    }
+
+    &:hover {
+        color: $lightBlue;
+
+        .btn__text {
+            border-color: $lightBlue;
+        }
+    }
+}

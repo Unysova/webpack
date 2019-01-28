@@ -1,0 +1,13 @@
+/* variables */
+$imgPath: "../img";
+$fontPath: "../fonts";
+$red: #f36;
+$darkRed: #c06;
+$gray: #b3b3b3;
+$darkGray: darken($gray, 15%);
+$blue: #09c;
+$yellow: #ff6;
+$lightBlue: lighten(desaturate($blue, 2.96), 7.25);
+$itemColor: #fff;
+
+$break-tablet: 1045px;

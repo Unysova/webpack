@@ -1,0 +1,61 @@
+doctype html
+html(lang='ru')
+	head
+	meta(charset = 'utf-8')
+	link(rel='icon', href='img/favicon.ico', type='image/x-icon')
+	title Нямушка
+	meta(name='viewport', content='width=device-width')
+	link(src='style.css')
+
+	body
+
+		
+		- var item1 = [{id: 'foie-gras', status: '', composition: 'с фуа-гра', description :'Печень утки разварная с артишоками.', weight: '0,5', points: ['10 порций', 'мышь в подарок']}]
+		- var item2 = [{id: 'fish', status: '', composition: 'с рыбой', description: 'Головы щучьи с чесноком да свежайшая сёмгушка.', weight: '2', points: ['40 порций', '2 мыши в подарок']}]
+		- var item3 = [{id: 'chicken', status: 'disabled', composition : 'с курой', description: 'Филе из цыплят с трюфелями в бульоне.',  weight: '5',points: ['100 порций', '2 мыши в подарок', 'заказчик доволен']}]
+
+
+		mixin product(items)
+			each item in items
+				if item.status === 'disabled'
+					- disabled = true
+				else if item.status === ''
+					- disabled = false
+				else
+					- disabled = false
+
+				li(class='product_'+item.status+' product', aria-label='Карточка продукта')
+					input(type='checkbox', name='product-checkbox' value=item.composition, class='item-checkbox',
+					id='product_'+item.id, disabled=disabled)
+					label(class='item', for='product_'+item.id)
+						.item__degradation-background
+							.degradation-background__top
+							.degradation-background__bottom
+						.item__content
+							p.content__default-text Сказочное заморское яство
+							p.content__was-selected-hover-text Котэ не одобряет?
+
+							h2 Нямушка 
+								span.h2__description= item.composition
+
+
+							ul.points-list
+								each point in item.points
+									li 
+										p #{point}
+						.item__weight
+							p.weight__num #{item.weight} 
+							p.weight__measure кг
+					.product__description
+						p.description__default-text Чего сидишь?  Порадуй котэ, #[button(class='product__select-btn btn_like-link', aria-label="Копка выбора и отмены выбора товара") #[span(class='btn__text') купи].]
+						p.description__disabled-text Печалька, #{item.composition} закончился.
+						p.description__selected-text=item.description
+
+		section.main
+			.wrapper
+				h1 Ты сегодня покормил кота?
+				form
+					ul.product-list
+						+product(item1)
+						+product(item2)
+						+product(item3)
